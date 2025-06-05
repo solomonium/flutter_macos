@@ -70,6 +70,5 @@ workflows:
     artifacts:
       - build/macos/**/*.pkg
     publishing:
-      email:
-      recipients:
-        - your.email@example.com
+      app_store_connect:
+        auth: integration
