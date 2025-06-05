@@ -61,7 +61,7 @@ workflows:
           INSTALLER_CERT_NAME=$(keychain list-certificates \
             | jq '.[]
             | select(.common_name
-            | contains("Mac Developer Installer"))
+            | contains("CertificateMac"))
             | .common_name' \
             | xargs)
 
@@ -70,10 +70,6 @@ workflows:
     artifacts:
       - build/macos/**/*.pkg
     publishing:
-      app_store_connect:
-        release_notes: |
-          New version of the app with build number $PROJECT_BUILD_NUMBER.
-          Changes include:
-          - Flutter packages updated
-          - Code signing configured
-          - macOS application built and packaged successfully.
+      email:
+      recipients:
+        - your.email@example.com
