@@ -71,10 +71,6 @@ workflows:
       - build/macos/**/*.pkg
     publishing:
       app_store_connect:
-        upload: true
-        bundle_id: $BUNDLE_ID
-        platform: MAC_OS
-        type: MAC_APP_STORE
         release_notes: |
           New version of the app with build number $PROJECT_BUILD_NUMBER.
           Changes include:
