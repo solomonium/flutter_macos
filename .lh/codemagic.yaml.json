@@ -1,0 +1,26 @@
+{
+    "sourceFile": "codemagic.yaml",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1749134763971,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1749135051044,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,4 +4,21 @@\n       groups:\n         - code-signing\n     integrations:\n       app_store_connect: <App Store Connect API key name>\n+    scripts:\n+      - name: Set up keychain to be used for code signing using Codemagic CLI 'keychain' command\n+        script: keychain initialize\n+      - name: Fetch signing files\n+        script: |\n+          app-store-connect fetch-signing-files \"$BUNDLE_ID\" \\\n+            --platform MAC_OS \\\n+            --type MAC_APP_STORE \\\n+            --create\n+      - name: Fetch Mac Installer Distribution certificates\n+        script: |\n+            app-store-connect certificates list --type MAC_APP_DISTRIBUTION --save || \\\n+            app-store-connect certificates create --type MAC_APP_DISTRIBUTION --save\n+      - name: Set up signing certificate\n+        script: keychain add-certificates\n+      - name: Set up code signing settings on Xcode project\n+        script: xcode-project use-profiles\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1749135233206,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n workflows:\n   ios-workflow:\n     environment:\n       groups:\n-        - code-signing\n+        - appstore_credentials\n     integrations:\n       app_store_connect: <App Store Connect API key name>\n     scripts:\n       - name: Set up keychain to be used for code signing using Codemagic CLI 'keychain' command\n"
+                }
+            ],
+            "date": 1749134763971,
+            "name": "Commit-0",
+            "content": "workflows:\n  ios-workflow:\n    environment:\n        groups:\n            - code-signing\n    integrations:\n        app_store_connect: <App Store Connect API key name>"
+        }
+    ]
+}
